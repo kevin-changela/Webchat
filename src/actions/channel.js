@@ -10,3 +10,4 @@ export const getChannelPreferences = (channelId, token) =>
   })
     .then(res => res.json())
     .then(data => data.results)
+    .then(data => updateWelcomeMessage(data))
