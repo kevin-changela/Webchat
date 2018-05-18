@@ -1,3 +1,4 @@
+/*** i820703 ***/
 export const updateWelcomeMessage = (data) => {
     return getCurrentUserInfo()
         .then(function(user) {
@@ -21,3 +22,4 @@ const getCurrentUserInfo = () => {
             return data;
         })
 }
+/*** i820703 ***/
