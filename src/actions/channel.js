@@ -1,4 +1,5 @@
 import config from '../config'
+import { updateWelcomeMessage } from 'sso'
 
 export const getChannelPreferences = (channelId, token) =>
   fetch(`${config.apiUrl}/webhook/${channelId}/preferences`, {
