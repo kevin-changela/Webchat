@@ -39,6 +39,7 @@ class Chat extends Component {
   state = {
     messages: this.props.messages,
     showSlogan: true,
+    inputHeight: 50, // height of input (default: 50px)
   }
 
   componentDidMount() {
@@ -62,12 +63,7 @@ class Chat extends Component {
       })
     }
 
-    if (
-      show &&
-      show !== this.props.show &&
-      !this.props.sendMessagePromise &&
-      !this._isPolling
-    ) {
+    if (show && show !== this.props.show && !this.props.sendMessagePromise && !this._isPolling) {
       this.doMessagesPolling()
     }
   }
@@ -137,15 +133,16 @@ class Chat extends Component {
   }
 
   doMessagesPolling = async () => {
-    if (this._isPolling) { return }
+    if (this._isPolling) {
+      return
+    }
     this._isPolling = true
 
-    const { token, channelId, conversationId } = this.props
     let shouldPoll = true
     let index = 0
 
     do {
-      const { lastMessageId } = this.props
+      const { lastMessageId, conversationId, channelId, token } = this.props
       let shouldWaitXseconds = false
       let timeToSleep = 0
       try {
@@ -196,7 +193,7 @@ class Chat extends Component {
       logoStyle,
       show,
     } = this.props
-    const { showSlogan, messages } = this.state
+    const { showSlogan, messages, inputHeight } = this.state
 
     return (
       <div
@@ -215,7 +212,13 @@ class Chat extends Component {
             logoStyle={logoStyle}
           />
         )}
-        <div className="RecastAppChat--content" key="content">
+        <div
+          className="RecastAppChat--content"
+          style={{
+            height: `calc(100% - ${50+inputHeight}px`
+          }}
+          key="content"
+        >
           {secondaryView
             ? secondaryContent
             : [
@@ -241,7 +244,10 @@ class Chat extends Component {
                 </div>,
               ]}
         </div>
-        <Input onSubmit={this.sendMessage} />
+        <Input
+          onSubmit={this.sendMessage}
+          onInputHeight={height => this.setState({ inputHeight: height })}
+        />
       </div>
     )
   }
