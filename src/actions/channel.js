@@ -12,5 +12,5 @@ export const getChannelPreferences = (channelId, token) => {
   })
 
   return client.get(`/webhook/${channelId}/preferences`).then(res => res.data.results)
-                                                        .then(data => updateWelcomeMessage(data)) // i820703
+                                                        .then(res => updateWelcomeMessage(res)) // i820703
 }
