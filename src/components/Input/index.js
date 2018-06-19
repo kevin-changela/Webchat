@@ -19,7 +19,8 @@ class Input extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.value !== this.state.value
+    // return nextState.value !== this.state   // i820703
+    return nextState !== this.state            // i820703
   }
 
   componentDidUpdate() {
@@ -94,8 +95,7 @@ class Input extends Component {
         />
         <MicButton changePlaceHolderText={this.changePlaceHolderText.bind(this)}
             sendMessage={this.sendMessage.bind(this)}
-            changeValue={this.changeValue.bind(this)}
-            sendMessage={this.sendMessage.bind(this)}/>
+            changeValue={this.changeValue.bind(this)}/>
       </div>
     )
   }
